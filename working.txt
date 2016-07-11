@@ -1,0 +1,37 @@
+Quiz Week 3
+
+Create a logical vector that identifies the households on greater than 10 acres who sold more than $10,000 worth of agriculture products. Assign that logical vector to the variable agricultureLogical. Apply the which() function like this to identify the rows of the data frame where the logical vector is TRUE.
+
+which(agricultureLogical)
+
+survey$agricultureLogical = 
+
+What is the average GDP ranking for the "High income: OECD" and "High income: nonOECD" group?
+
+byIncomeGroup <- group_by(m2,Income.Group)
+
+summarize(byIncomeGroup, avgRank = mean(GDPRank))
+# A tibble: 6 x 2
+          Income.Group   avgRank
+                 <chr>     <dbl>
+1                            NaN
+2 High income: nonOECD  91.91304
+3    High income: OECD  32.96667
+4           Low income 133.72973
+5  Lower middle income 107.70370
+6  Upper middle income  92.13333
+
+
+
+> quantile(m2$GDPRank, probs=c(0.2,0.4,0.6,0.8,1.0), na.rm = TRUE)
+  20%   40%   60%   80%  100% 
+ 38.6  76.2 113.8 152.4 190.0 
+ 
+ Attach which quantile a given rank has to the country
+ 
+ m2$rank5Quantile = cut(m2$GDPRank, breaks=quantile(m2$GDPRank, probs=c(0.2,0.4,0.6,0.8,1.0), na.rm = TRUE))
+ table(m2$rank5Quantile)
+ 
+ easier
+ 
+ m2$rank5Quantile = cut2(m2$GDPRank,g5)
